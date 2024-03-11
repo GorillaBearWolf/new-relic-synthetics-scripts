@@ -1,0 +1,10 @@
+certifi==2024.2.2
+charset-normalizer==3.3.2
+distlib==0.3.8
+filelock==3.13.1
+idna==3.6
+platformdirs==4.2.0
+python-dotenv==1.0.1
+requests==2.31.0
+setuptools==69.1.1
+urllib3==2.2.1
