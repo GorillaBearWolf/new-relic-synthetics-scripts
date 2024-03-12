@@ -34,6 +34,7 @@ curl https://gist.githubusercontent.com/GorillaBearWolf/c7690697fafb16aa13a38328
 
 ### Todo
 
+- [ ] Comments/docstrings
 - [ ] `setup.py`
 - [ ] Improve Javascript
 - [ ] Improve packaging

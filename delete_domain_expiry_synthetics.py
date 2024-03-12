@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
+"""_summary_
+"""
+
+
 import os
 from dotenv import load_dotenv
 import synthetics_functions
