@@ -2,8 +2,6 @@
 
 ## A collection of custom scripts to manage New Relic Synthetic Monitors using the NerdGraph API, mainly Scripted API synthetics
 
-These are early iterations that I'm using at work, all help and suggestions are welcome!
-
 `Python 3.7+` is required.
 
 ### Automated install
