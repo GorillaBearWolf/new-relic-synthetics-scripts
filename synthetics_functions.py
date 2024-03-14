@@ -33,7 +33,13 @@ def get_entities(url, query, headers):
 
     while True:
         mutation = {
-                    "query": f"{{ actor {{ entitySearch( query: \"{query}\") {{ results (cursor: {next_cursor or ''}) {{ nextCursor entities {{ ... on SyntheticMonitorEntityOutline {{ name guid monitorId tags {{key values}}}}}}}}}}}}}}"
+                    "query": f"{{ \
+                        actor {{ \
+                            entitySearch( query: \"{query}\") {{ \
+                                results (cursor: {next_cursor or ''}) {{ \
+                                    nextCursor entities {{ \
+                                        ... on SyntheticMonitorEntityOutline {{ \
+                                            name guid monitorId }}}}}}}}}}}}"
                     }
 
         response = requests.request("POST", url, headers=headers, json=mutation)
