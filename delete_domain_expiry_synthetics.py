@@ -51,7 +51,7 @@ def main():
 
         if "deletedGuid" in response.text and response.status_code == 200:
             c += 1
-            print(f"{c}/{len(monitors)} : {response.status_code}/Ok : `{clean_url}` monitor deleted")
+            print(f"{c}/{len(urls)} : {response.status_code}/Ok : `{clean_url}` monitor deleted")
         else:
             print(
                 f"{response.status_code} : `{clean_url}` monitor not deleted : {response.text}"

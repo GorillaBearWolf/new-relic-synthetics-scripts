@@ -52,7 +52,7 @@ def main():
 
         if response.status_code == 204:
             c += 1
-            print(f"{c}/{len(monitors)} : {response.status_code}/Ok : `{clean_url}` monitor updated")
+            print(f"{c}/{len(urls)} : {response.status_code}/Ok : `{clean_url}` monitor updated")
         else:
             print(
                 f"{response.status_code} : `{clean_url}` monitor not updated : {response.text}"

@@ -6,8 +6,9 @@
 """
 
 
-import os
+from pprint import pprint
 from dotenv import load_dotenv
+import os
 import synthetics_functions
 
 
@@ -20,7 +21,7 @@ def main():
     query = "name LIKE 'Domain Expiry'"
 
     monitors = synthetics_functions.get_entities(graph_url, query, headers)
-    print(f'{monitors}\n\nlength={len(monitors)}')
+    pprint(f'{monitors}\n\nlength={len(monitors)}')
 
 
 if __name__ == "__main__":
