@@ -34,8 +34,8 @@ curl https://gist.githubusercontent.com/GorillaBearWolf/c7690697fafb16aa13a38328
 
 - [ ] Comments/docstrings
 - [ ] `setup.py`
-- [ ] Improve Javascript
 - [ ] Improve packaging
+- [x] Improve Javascript
 - [x] Authorization via environment variable
   - [x] `setup.sh`
   - [x] `os` module
