@@ -53,9 +53,7 @@ def main():
             c += 1
             print(f"{c}/{len(urls)} : {response.status_code}/Ok : `{clean_url}` monitor deleted")
         else:
-            print(
-                f"{response.status_code} : `{clean_url}` monitor not deleted : {response.text}"
-            )
+            raise Exception(f"Query failed: {response.text}")
 
     print("All found URLs have been processed.")
 
