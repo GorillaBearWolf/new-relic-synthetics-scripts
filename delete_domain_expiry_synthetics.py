@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-"""_summary_
-"""
-
+"""_summary_"""
 
 import os
 from dotenv import load_dotenv
-import synthetics_functions
+from synthetics_functions import (
+    get_urls,
+    get_entities,
+    get_ids,
+    get_delete_monitor_mutation,
+    make_graph_post_request,
+)
 
 
 def main():
@@ -21,16 +24,15 @@ def main():
     query = "name LIKE 'Domain Expiry'"
     c = 0
 
-
-    urls = synthetics_functions.get_urls(url_file)
-    monitors = synthetics_functions.get_entities(graph_url, query, headers)
+    urls = get_urls(url_file)
+    monitors = get_entities(graph_url, query, headers)
 
     for url in urls:
         clean_url = url.strip()
 
         for i in range(len(monitors)):
             if clean_url:
-                ids = synthetics_functions.get_ids(i, clean_url, monitors)
+                ids = get_ids(i, clean_url, monitors)
             else:
                 print(f"{clean_url} not clean, trying next URL")
                 break
@@ -42,16 +44,16 @@ def main():
                 break
             else:
                 guid = ids[1]
-                mutation = synthetics_functions.get_delete_monitor_mutation(guid)
+                mutation = get_delete_monitor_mutation(guid)
                 break
 
-        response = synthetics_functions.make_graph_post_request(
-            graph_url, headers, mutation
-        )
+        response = make_graph_post_request(graph_url, headers, mutation)
 
         if "deletedGuid" in response.text and response.status_code == 200:
             c += 1
-            print(f"{c}/{len(urls)} : {response.status_code}/Ok : `{clean_url}` monitor deleted")
+            print(
+                f"{c}/{len(urls)} : {response.status_code}/Ok : `{clean_url}` monitor deleted"
+            )
         else:
             raise Exception(f"Query failed: {response.text}")
 
