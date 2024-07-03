@@ -33,14 +33,14 @@ def get_entities(url, query, headers):
 
     while True:
         mutation = {
-                    "query": f"{{ \
-                        actor {{ \
-                            entitySearch( query: \"{query}\") {{ \
-                                results (cursor: {next_cursor or ''}) {{ \
-                                    nextCursor entities {{ \
-                                        ... on SyntheticMonitorEntityOutline {{ \
-                                            name guid monitorId }}}}}}}}}}}}"
-                    }
+            f"""query: {{
+                    actor {{
+                        entitySearch( query: \"{query}\") {{
+                            results (cursor: {next_cursor or ''}) {{
+                                nextCursor entities {{
+                                    ... on SyntheticMonitorEntityOutline {{
+                                        name guid monitorId }}}}}}}}}}}}"""
+                                        }
 
         response = requests.request("POST", url, headers=headers, json=mutation)
 
@@ -59,20 +59,48 @@ def get_entities(url, query, headers):
 
 
 def get_create_script_monitor_mutation(url, account_id):
-    return "{\"query\":\"mutation SyntheticsCreateScriptApiMonitor {\\n    syntheticsCreateScriptApiMonitor(\\n        accountId: " + account_id + "\\n        monitor: {\\n            name: \\\"Domain Expiry - " + url + "\\\"\\n            period: EVERY_DAY\\n            runtime: {\\n                runtimeType: \\\"NODE_API\\\"\\n                runtimeTypeVersion: \\\"16.10\\\"\\n                scriptLanguage: \\\"JAVASCRIPT\\\"\\n            }\\n            script: \\\"\\\"\\n            status: ENABLED\\n            locations: { public: \\\"AWS_US_EAST_1\\\" }\\n        }\\n    ) {\\n        errors {\\n            description\\n            type\\n        }\\n    }\\n}\\n\",\"variables\":{}}"
+    return "{\"query\":\"mutation SyntheticsCreateScriptApiMonitor {\
+            syntheticsCreateScriptApiMonitor(\
+                accountId: " + account_id + "\
+                monitor: {\
+                    name: \\\"Domain Expiry - " + url + "\\\"\
+                    period: EVERY_DAY\
+                    runtime: {\
+                        runtimeType: \\\"NODE_API\\\"\
+                        runtimeTypeVersion: \\\"16.10\\\"\
+                        scriptLanguage: \\\"JAVASCRIPT\\\"\
+                    }\
+                    script: \\\"\\\"\
+                    status: ENABLED\
+                    locations: { public: \\\"AWS_US_EAST_1\\\" }\
+                }\
+            ) {\
+                errors {\
+                    description\
+                    type\
+                }\
+            }\
+        }\
+        \",\"variables\":{}}"
 
 
 def get_delete_monitor_mutation(guid):
-    return "{\"query\":\"mutation SyntheticsDeleteMonitor {\\n    syntheticsDeleteMonitor(guid: \\\"" + guid + "\\\") {\\n        deletedGuid\\n    }\\n}\\n\",\"variables\":{}}"
+    return "{\"query\":\"mutation SyntheticsDeleteMonitor {\
+            syntheticsDeleteMonitor(guid: \\\"" + guid + "\\\") {\
+                deletedGuid\
+            }\
+        }\
+        \",\"variables\":{}}"
 
 
 def get_ids(i, url, monitors):
-    if url in monitors[i]["name"]:
-        monitors.append(monitors.pop(monitors.index(monitors[i])))
-        return monitors[-1]["monitorId"], monitors[-1]["guid"]
-    if IndexError:
-        return IndexError
-    else:
+    try:
+        if url in monitors[i]["name"]:
+            monitors.append(monitors.pop(monitors.index(monitors[i])))
+            return monitors[-1]["monitorId"], monitors[-1]["guid"]
+    except IndexError:
+        raise IndexError
+    except:
         return False
 
 
