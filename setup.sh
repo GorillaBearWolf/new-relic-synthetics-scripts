@@ -4,7 +4,7 @@ if pipx install virtualenv;
     then printf "Creating .venv...\n";
     else { printf "\nvirtualenv NOT Ok, please verify installation\n"; exit 1; }
     fi
-virtualenv .venv
+virtualenv .venv --quiet
 source .venv/bin/activate
 python -m ensurepip --upgrade
 python -m pip install -r requirements.txt
